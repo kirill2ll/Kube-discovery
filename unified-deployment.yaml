@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-name
+spec:
+  selector:
+    app: second_app
+  ports:
+    - protocol: 'TCP'
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: app-name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      # write labels that this deployment should control (it can be a combination of labels)
+      app: second_app
+  template: 
+    metadata:
+      labels:
+        app: second_app
+    spec:
+      containers:
+        # - is used for multiple containers
+        - name: node-name
+          image: kvitkovski/kub-first-app
+
