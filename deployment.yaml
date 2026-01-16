@@ -5,9 +5,11 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      # write labels that this deployment should control (it can be a combination of labels)
-      app: second_app
+    # matchLabels:
+    #   # write labels that this deployment should control (it can be a combination of labels)
+    #   app: second_app
+    matchExpressions:
+      - {key: app, operator: In, values: [second-app, first-app]}
   template: 
     metadata:
       labels:
