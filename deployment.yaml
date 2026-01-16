@@ -5,11 +5,11 @@ metadata:
 spec:
   replicas: 1
   selector:
-    # matchLabels:
-    #   # write labels that this deployment should control (it can be a combination of labels)
-    #   app: second_app
-    matchExpressions:
-      - {key: app, operator: In, values: [second-app, first-app]}
+    matchLabels:
+      # write labels that this deployment should control (it can be a combination of labels)
+      app: second_app
+    # matchExpressions:
+    #   - {key: app, operator: In, values: [second-app, first-app]}
   template: 
     metadata:
       labels:
@@ -19,4 +19,11 @@ spec:
         # - is used for multiple containers
         - name: node-name
           image: kvitkovski/kub-first-app
+          # to configure settings manually if the probes are up or down
+          livenessProbe:
+            httpGet: 
+              path: /
+              port: 8080
+            periodSeconds: 3
+             
 
